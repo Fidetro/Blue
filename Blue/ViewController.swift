@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         Blue.share.scan(nil, discoverSave: { (_,p,data,_) in
             if p.name == "YUNMAI-SIGNAL-CW" {
                 print(data)
-                return p
+                return ("称",p)
             }else{
 //                print(p.name)
             }

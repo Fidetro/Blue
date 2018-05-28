@@ -8,19 +8,19 @@
 
 import UIKit
 import CoreBluetooth
-typealias ScanWithServices = ((_ central: CBCentralManager)->())
-typealias DiscoverSave = ((_ central: CBCentralManager, _ peripheral: CBPeripheral, _ advertisementData: [String : Any], _ RSSI: NSNumber)->(CBPeripheral?))
-typealias DiscoverConnect = ((_ peripheral:CBPeripheral)->())
-typealias DiscoverServices = ((_ peripheral:CBPeripheral)->())
-typealias DiscoverForServices = ((_ peripheral: CBPeripheral, _ service:CBService)->(CBService))
-typealias ReadValueForCharacteristics = ((_ characteristic:CBCharacteristic)->(CBCharacteristic?))
-typealias SetNotifyForCharacteristics = ((_ characteristic:CBCharacteristic)->(CBCharacteristic?))
-typealias WriteForCharacteristics = ((_ characteristic:CBCharacteristic)->(CBCharacteristic?))
-typealias UpdateValueForCharacteristic = ((_ value:Data?)->())
-typealias Operation = (()->())
-typealias Done = (()->())
+public typealias ScanWithServices = ((_ central: CBCentralManager)->())
+public typealias DiscoverSave = ((_ central: CBCentralManager, _ peripheral: CBPeripheral, _ advertisementData: [String : Any], _ RSSI: NSNumber)->((key:String,peripheral:CBPeripheral)?))
+public typealias DiscoverConnect = ((_ peripheral:CBPeripheral)->())
+public typealias DiscoverServices = ((_ peripheral:CBPeripheral)->())
+public typealias DiscoverForServices = ((_ peripheral: CBPeripheral, _ service:CBService)->(CBService))
+public typealias ReadValueForCharacteristics = ((_ characteristic:CBCharacteristic)->(CBCharacteristic?))
+public typealias SetNotifyForCharacteristics = ((_ characteristic:CBCharacteristic)->(CBCharacteristic?))
+public typealias WriteForCharacteristics = ((_ characteristic:CBCharacteristic)->(CBCharacteristic?))
+public typealias UpdateValueForCharacteristic = ((_ value:Data?)->())
+public typealias Operation = (()->())
+public typealias Done = (()->())
 class Blue:NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
-    private var savePeripherals = [UUID:CBPeripheral]()
+    private var savePeripherals = [String:CBPeripheral]()
     private var scanWithServices : ScanWithServices?=nil
     private var discoverSave : DiscoverSave?=nil
     private var discoverConnect : DiscoverConnect?=nil
@@ -37,12 +37,13 @@ class Blue:NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
     private var notifyCharacteristicsArray = [(peripheral:CBPeripheral,characteristic:CBCharacteristic)]()
     /// 写入特征的数组
     private var writeCharacteristicsArray = [(peripheral:CBPeripheral,characteristic:CBCharacteristic)]()
-    let lock = NSLock()
-    let queue = DispatchQueue(label: "com.fidetro.Blue", qos: .utility, attributes: .concurrent)
-    let sleepSeond = TimeInterval(5)
+    private let lock = NSLock()
+    private let queue = DispatchQueue(label: "com.fidetro.Blue", qos: .utility, attributes: .concurrent)
+    let group = DispatchGroup()
+    private let sleepSeond = TimeInterval(5)
     
     
-    static let share = Blue()
+    public static let share = Blue()
     private let centralManager = CBCentralManager()
     
     
@@ -52,19 +53,21 @@ class Blue:NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
     }
     
     
-    func async(_ operation:Operation?=nil) {
-        queue.async {
+    private func async(_ operation:Operation?=nil) {
+        group.enter()
+        queue.async(group: group,flags: .barrier) {
             self.lock.lock(before: Date.init(timeIntervalSince1970: Date().timeIntervalSince1970+self.sleepSeond))
             
             if let operation = operation {
                 operation()
+                self.group.leave()
             }
             
             
         }
     }
     
-    func done(_ done:Done?=nil) -> Blue {
+    public func done(_ done:Done?=nil) -> Blue {
         async {
             if let done = done {
                 done()
@@ -76,7 +79,7 @@ class Blue:NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
     
     /// 扫描外设
     @discardableResult
-    func scan(_ services:[CBUUID]?=nil, discoverSave:DiscoverSave?=nil) -> Blue {
+    public func scan(_ services:[CBUUID]?=nil, discoverSave:DiscoverSave?=nil) -> Blue {
         self.centralManager.delegate = self
         if self.centralManager.state == .poweredOn {
             self.centralManager.scanForPeripherals(withServices: services, options: nil)
@@ -91,7 +94,7 @@ class Blue:NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
     }
     /// 连接设备
     @discardableResult
-    func connect() -> Blue {
+    public func connect() -> Blue {
         async {
             self.discoverConnect = { [weak self](peripheral) in
                 
@@ -105,7 +108,7 @@ class Blue:NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
     }
     /// 发现服务
     @discardableResult
-    func discoverServices(_ servicesUUIDs:[CBUUID]?,forServices:DiscoverForServices?=nil) -> Blue {
+    public func discoverServices(_ servicesUUIDs:[CBUUID]?,forServices:DiscoverForServices?=nil) -> Blue {
         async {
             self.discoverServices = { [weak self] (peripheral) in
                 peripheral.delegate = self
@@ -119,7 +122,7 @@ class Blue:NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
     
     /// 这个地方发现特征，没有做UUID过滤
     @discardableResult
-    func discoverCharacteristics(readFor:ReadValueForCharacteristics?=nil,setNotify:SetNotifyForCharacteristics?=nil,writeFor:WriteForCharacteristics?=nil) -> Blue {
+    public func discoverCharacteristics(readFor:ReadValueForCharacteristics?=nil,setNotify:SetNotifyForCharacteristics?=nil,writeFor:WriteForCharacteristics?=nil) -> Blue {
         async {
             self.readValueForCharacteristics = readFor
             self.setNotifyForCharacteristics = setNotify
@@ -131,14 +134,14 @@ class Blue:NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
     
     
     @discardableResult
-    func update(value:UpdateValueForCharacteristic?=nil) -> Blue {
+    public func update(value:UpdateValueForCharacteristic?=nil) -> Blue {
         self.updateValueForCharacteristic = value
         return self
     }
     
     
     
-    func write(data:Data,characteristicUUID:CBUUID) -> Bool {
+    public func write(data:Data,characteristicUUID:CBUUID) -> Bool {
         for tuple in writeCharacteristicsArray {
             if tuple.characteristic.uuid.uuidString == characteristicUUID.uuidString {
                 tuple.peripheral.writeValue(data, for: tuple.characteristic, type: .withResponse)
@@ -149,7 +152,7 @@ class Blue:NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
     }
     
     @discardableResult
-    func stopScan() -> Blue {
+    public func stopScan() -> Blue {
         async {
             self.centralManager.stopScan()
             self.lock.unlock()
@@ -184,13 +187,13 @@ extension Blue {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         if let discoverSave = discoverSave {
-            let savePeripheral = discoverSave(central,peripheral,advertisementData,RSSI)
+            let save = discoverSave(central,peripheral,advertisementData,RSSI)
             //得到过滤之后的外设
-            if let savePeripheral = savePeripheral {
+            if let save = save {
                 //将外设保存
-                savePeripherals[savePeripheral.identifier] = savePeripheral
+                savePeripherals[save.key] = save.peripheral
                 if let discoverConnect = discoverConnect {
-                    discoverConnect(savePeripheral)
+                    discoverConnect(save.peripheral)
                 }
                 
             }
