@@ -25,7 +25,7 @@ func printDebugLog<T>(_ message: T,
 
 
 
-class BlueManager: NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
+public class BlueManager: NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
     public var tag : Int {
         get{
             _tag += 1
@@ -38,9 +38,9 @@ class BlueManager: NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
     private var _tag : Int = 0
     public static let share = BlueManager()
     public let centralManager = CBCentralManager()
-
-    var blues = [Blue]()
-
+    
+    public var blues = [Blue]()
+    
     func scan(_ services:[CBUUID]?=nil) {
         centralManager.delegate = self
         centralManager.scanForPeripherals(withServices: services, options: nil)
@@ -52,25 +52,25 @@ class BlueManager: NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
 
 // MARK: - CBCentralManagerDelegate
 extension BlueManager {
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+    public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         NotificationCenter.default.post(name: .kCentralManagerDidUpdateState, object: central)
     }
     
-    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+    public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         NotificationCenter.default.post(name: .kDidDiscoverPeripheral, object: (central,peripheral,advertisementData,RSSI))
     }
     
-    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+    public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         peripheral.delegate = self
         NotificationCenter.default.post(name: .kDidConnectPeripheral, object: peripheral)
     }
     
-    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+    public func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         if let error = error { printDebugLog(error) }
         NotificationCenter.default.post(name: .kDidFailToConnectPeripheral, object: peripheral)
     }
-
-    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+    
+    public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         if let error = error { printDebugLog(error) }
         NotificationCenter.default.post(name: .kDidDisconnectPeripheral, object: peripheral)
     }
@@ -78,20 +78,20 @@ extension BlueManager {
 
 extension BlueManager {
     //discover services
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+    public func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         if let error = error { printDebugLog(error) }
         NotificationCenter.default.post(name: .kDidDiscoverServices, object: peripheral)
     }
     
     //discover characteristics
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+    public func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         if let error = error { printDebugLog(error) }
         NotificationCenter.default.post(name: .kDidDiscoverCharacteristics, object: (peripheral,service))
     }
     
     
     //didUpdateNotificationState
-    func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
+    public func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         if let error = error {
             printDebugLog("订阅失败: \(error)")
             return
@@ -104,8 +104,8 @@ extension BlueManager {
     }
     
     //update value for characteristic
-    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        NotificationCenter.default.post(name: .kDidUpdateValueForCharacteristic, object: (peripheral,characteristic))        
+    public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        NotificationCenter.default.post(name: .kDidUpdateValueForCharacteristic, object: (peripheral,characteristic))
     }
     
 }

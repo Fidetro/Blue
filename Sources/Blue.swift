@@ -27,40 +27,40 @@ public typealias DidDisconnect = ((_ peripheral:CBPeripheral)->())
 public typealias Operation = (()->())
 public typealias Done = (()->())
 
-class Blue: NSObject {
+public class Blue: NSObject {
     
-    var scanWithServices : ScanWithServices?=nil
-    var discoverSave : DiscoverSave?=nil
-    var discoverConnect : DiscoverConnect?=nil
-    var discoverServices : DiscoverServices?=nil
-    var discoverForServices : DiscoverForServices?=nil
-    var readValueForCharacteristics : ReadValueForCharacteristics?=nil
-    var setNotifyForCharacteristics : SetNotifyForCharacteristics?=nil
-    var writeForCharacteristics : WriteForCharacteristics?=nil
-    var updateValueForCharacteristic : UpdateValueForCharacteristic?=nil
+    private var scanWithServices : ScanWithServices?=nil
+    private var discoverSave : DiscoverSave?=nil
+    private var discoverConnect : DiscoverConnect?=nil
+    private var discoverServices : DiscoverServices?=nil
+    private var discoverForServices : DiscoverForServices?=nil
+    private var readValueForCharacteristics : ReadValueForCharacteristics?=nil
+    private var setNotifyForCharacteristics : SetNotifyForCharacteristics?=nil
+    private var writeForCharacteristics : WriteForCharacteristics?=nil
+    private var updateValueForCharacteristic : UpdateValueForCharacteristic?=nil
     
-    var didConnect : DidConnect?=nil
-    var didFailConnect : DidFailConnect?=nil
-    var didDisconnect : DidDisconnect?=nil
+    private var didConnect : DidConnect?=nil
+    private var didFailConnect : DidFailConnect?=nil
+    private var didDisconnect : DidDisconnect?=nil
     
     /// 读取特征的数组
-    var readCharacteristicsArray = [CBCharacteristic]()
+    private var readCharacteristicsArray = [CBCharacteristic]()
     /// 监听特征的数组
-    var notifyCharacteristicsArray = [CBCharacteristic]()
+    private var notifyCharacteristicsArray = [CBCharacteristic]()
     /// 写入特征的数组
-    var writeCharacteristicsArray = [CBCharacteristic]()
+    private var writeCharacteristicsArray = [CBCharacteristic]()
     
     
-    var connectPeripheral : CBPeripheral?
+    public var connectPeripheral : CBPeripheral?
     
-    var localeChangeObserver:NSObjectProtocol! = nil
-    let lock = NSLock()
-    let queue = DispatchQueue(label: "com.fidetro.Blue"+"."+"\(BlueManager.share.tag)", qos: .utility, attributes: .concurrent)
-    let group = DispatchGroup()
-    let sleepUnLock = TimeInterval(5)
+    private var localeChangeObserver:NSObjectProtocol! = nil
+    private let lock = NSLock()
+    private let queue = DispatchQueue(label: "com.fidetro.Blue"+"."+"\(BlueManager.share.tag)", qos: .utility, attributes: .concurrent)
+    private let group = DispatchGroup()
+    private let sleepUnLock = TimeInterval(5)
     
     
-    override init() {
+    public override init() {
         super.init()
         
         register()
@@ -254,7 +254,7 @@ extension Blue {
                         tuple.peripheral.readValue(for: readCharacteristic)
                         var isFind = false
                         for characteristic in self.readCharacteristicsArray {
-                          if characteristic.uuid.uuidString == readCharacteristic.uuid.uuidString {
+                            if characteristic.uuid.uuidString == readCharacteristic.uuid.uuidString {
                                 isFind = true
                                 break
                             }

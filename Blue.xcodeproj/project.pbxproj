@@ -12,9 +12,9 @@
 		9A28E5FF20B7BBCF00BC449C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A28E5FD20B7BBCF00BC449C /* Main.storyboard */; };
 		9A28E60120B7BBD200BC449C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A28E60020B7BBD200BC449C /* Assets.xcassets */; };
 		9A28E60420B7BBD200BC449C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A28E60220B7BBD200BC449C /* LaunchScreen.storyboard */; };
-		9A9499A220C8C7E90071E206 /* BlueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A94999F20C8C7E80071E206 /* BlueManager.swift */; };
-		9A9499A320C8C7E90071E206 /* Blue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9499A020C8C7E90071E206 /* Blue.swift */; };
-		9A9499A420C8C7E90071E206 /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9499A120C8C7E90071E206 /* NotificationCenter+Extension.swift */; };
+		9A9499C920C8E2CC0071E206 /* BlueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9499C620C8E2CC0071E206 /* BlueManager.swift */; };
+		9A9499CA20C8E2CC0071E206 /* Blue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9499C720C8E2CC0071E206 /* Blue.swift */; };
+		9A9499CB20C8E2CC0071E206 /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9499C820C8E2CC0071E206 /* NotificationCenter+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,9 +25,9 @@
 		9A28E60020B7BBD200BC449C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A28E60320B7BBD200BC449C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A28E60520B7BBD200BC449C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9A94999F20C8C7E80071E206 /* BlueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueManager.swift; sourceTree = "<group>"; };
-		9A9499A020C8C7E90071E206 /* Blue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blue.swift; sourceTree = "<group>"; };
-		9A9499A120C8C7E90071E206 /* NotificationCenter+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extension.swift"; sourceTree = "<group>"; };
+		9A9499C620C8E2CC0071E206 /* BlueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueManager.swift; sourceTree = "<group>"; };
+		9A9499C720C8E2CC0071E206 /* Blue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blue.swift; sourceTree = "<group>"; };
+		9A9499C820C8E2CC0071E206 /* NotificationCenter+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +60,7 @@
 		9A28E5F820B7BBCF00BC449C /* Blue */ = {
 			isa = PBXGroup;
 			children = (
-				9A28E60D20B7BBE700BC449C /* Sources */,
+				9A9499C520C8E2CC0071E206 /* Sources */,
 				9A28E5F920B7BBCF00BC449C /* AppDelegate.swift */,
 				9A28E5FB20B7BBCF00BC449C /* ViewController.swift */,
 				9A28E5FD20B7BBCF00BC449C /* Main.storyboard */,
@@ -71,15 +71,15 @@
 			path = Blue;
 			sourceTree = "<group>";
 		};
-		9A28E60D20B7BBE700BC449C /* Sources */ = {
+		9A9499C520C8E2CC0071E206 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				9A9499A020C8C7E90071E206 /* Blue.swift */,
-				9A94999F20C8C7E80071E206 /* BlueManager.swift */,
-				9A9499A120C8C7E90071E206 /* NotificationCenter+Extension.swift */,
+				9A9499C620C8E2CC0071E206 /* BlueManager.swift */,
+				9A9499C720C8E2CC0071E206 /* Blue.swift */,
+				9A9499C820C8E2CC0071E206 /* NotificationCenter+Extension.swift */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -153,10 +153,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A28E5FC20B7BBCF00BC449C /* ViewController.swift in Sources */,
-				9A9499A320C8C7E90071E206 /* Blue.swift in Sources */,
-				9A9499A420C8C7E90071E206 /* NotificationCenter+Extension.swift in Sources */,
+				9A9499CA20C8E2CC0071E206 /* Blue.swift in Sources */,
+				9A9499CB20C8E2CC0071E206 /* NotificationCenter+Extension.swift in Sources */,
 				9A28E5FA20B7BBCF00BC449C /* AppDelegate.swift in Sources */,
-				9A9499A220C8C7E90071E206 /* BlueManager.swift in Sources */,
+				9A9499C920C8E2CC0071E206 /* BlueManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
