@@ -46,6 +46,11 @@ public class BlueManager: NSObject,CBCentralManagerDelegate,CBPeripheralDelegate
         centralManager.scanForPeripherals(withServices: services, options: nil)
     }
     
+    public func currentState() -> CBManagerState {
+        return centralManager.state
+    }
+    
+    
 }
 
 

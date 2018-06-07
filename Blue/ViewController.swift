@@ -16,6 +16,11 @@ class ViewController: UIViewController {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard BlueManager.share.currentState() == .poweredOn else {
+            print("请打开蓝牙")
+            return
+        }
+        
         blue.scan(discoverSave: { (_,p,data,_) in
             if p.name == "YUNMAI-SIGNAL-CW" {
                 print("找到了")
