@@ -33,7 +33,7 @@
 ```
 3. 支持多设备连接 
 对应一个Blue对象管理一个外设  
-![](https://github.com/Fidetro/Blue/tree/master/src/1.jpeg)  
+![](https://github.com/Fidetro/Blue/tree/master/src/1.png)  
 4. 链式异步等待  
 例如简单的一个发现设备，连接设备之后停止扫描
 ```
