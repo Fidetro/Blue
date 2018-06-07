@@ -22,14 +22,6 @@ func printDebugLog<T>(_ message: T,
 
 
 
-extension CBCentralManager {
-    public var centralManagerState: CBCentralManagerState  {
-        get {
-            return CBCentralManagerState(rawValue: state.rawValue) ?? .unknown
-        }
-    }
-}
-
 
 public class BlueManager: NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
     public var tag : Int {
@@ -52,9 +44,6 @@ public class BlueManager: NSObject,CBCentralManagerDelegate,CBPeripheralDelegate
         centralManager.scanForPeripherals(withServices: services, options: nil)
     }
     
-    public func currentState() -> CBCentralManagerState {
-        return centralManager.centralManagerState
-    }
     
 
 }
