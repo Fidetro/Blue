@@ -60,7 +60,7 @@
 		9A28E5F820B7BBCF00BC449C /* Blue */ = {
 			isa = PBXGroup;
 			children = (
-				9A28E60D20B7BBE700BC449C /* Source */,
+				9A28E60D20B7BBE700BC449C /* Sources */,
 				9A28E5F920B7BBCF00BC449C /* AppDelegate.swift */,
 				9A28E5FB20B7BBCF00BC449C /* ViewController.swift */,
 				9A28E5FD20B7BBCF00BC449C /* Main.storyboard */,
@@ -71,14 +71,14 @@
 			path = Blue;
 			sourceTree = "<group>";
 		};
-		9A28E60D20B7BBE700BC449C /* Source */ = {
+		9A28E60D20B7BBE700BC449C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				9A9499A020C8C7E90071E206 /* Blue.swift */,
 				9A94999F20C8C7E80071E206 /* BlueManager.swift */,
 				9A9499A120C8C7E90071E206 /* NotificationCenter+Extension.swift */,
 			);
-			path = Source;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
