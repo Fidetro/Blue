@@ -29,35 +29,35 @@ public typealias Done = (()->())
 
 class Blue: NSObject {
     
-    private var scanWithServices : ScanWithServices?=nil
-    private var discoverSave : DiscoverSave?=nil
-    private var discoverConnect : DiscoverConnect?=nil
-    private var discoverServices : DiscoverServices?=nil
-    private var discoverForServices : DiscoverForServices?=nil
-    private var readValueForCharacteristics : ReadValueForCharacteristics?=nil
-    private var setNotifyForCharacteristics : SetNotifyForCharacteristics?=nil
-    private var writeForCharacteristics : WriteForCharacteristics?=nil
-    private var updateValueForCharacteristic : UpdateValueForCharacteristic?=nil
+    var scanWithServices : ScanWithServices?=nil
+    var discoverSave : DiscoverSave?=nil
+    var discoverConnect : DiscoverConnect?=nil
+    var discoverServices : DiscoverServices?=nil
+    var discoverForServices : DiscoverForServices?=nil
+    var readValueForCharacteristics : ReadValueForCharacteristics?=nil
+    var setNotifyForCharacteristics : SetNotifyForCharacteristics?=nil
+    var writeForCharacteristics : WriteForCharacteristics?=nil
+    var updateValueForCharacteristic : UpdateValueForCharacteristic?=nil
     
-    private var didConnect : DidConnect?=nil
-    private var didFailConnect : DidFailConnect?=nil
-    private var didDisconnect : DidDisconnect?=nil
+    var didConnect : DidConnect?=nil
+    var didFailConnect : DidFailConnect?=nil
+    var didDisconnect : DidDisconnect?=nil
     
     /// 读取特征的数组
-    private var readCharacteristicsArray = [CBCharacteristic]()
+    var readCharacteristicsArray = [CBCharacteristic]()
     /// 监听特征的数组
-    private var notifyCharacteristicsArray = [CBCharacteristic]()
+    var notifyCharacteristicsArray = [CBCharacteristic]()
     /// 写入特征的数组
-    private var writeCharacteristicsArray = [CBCharacteristic]()
+    var writeCharacteristicsArray = [CBCharacteristic]()
     
     
-    private var connectPeripheral : CBPeripheral?
+    var connectPeripheral : CBPeripheral?
     
     var localeChangeObserver:NSObjectProtocol! = nil
-    private let lock = NSLock()
-    private let queue = DispatchQueue(label: "com.fidetro.Blue"+"."+"\(BlueManager.share.tag)", qos: .utility, attributes: .concurrent)
+    let lock = NSLock()
+    let queue = DispatchQueue(label: "com.fidetro.Blue"+"."+"\(BlueManager.share.tag)", qos: .utility, attributes: .concurrent)
     let group = DispatchGroup()
-    private let sleepUnLock = TimeInterval(5)
+    let sleepUnLock = TimeInterval(5)
     
     
     override init() {
@@ -167,7 +167,8 @@ class Blue: NSObject {
 }
 
 extension Blue {
-   private func register() {
+    
+    func register() {
         BlueManager.share.blues.append(self)
         self.localeChangeObserver = NotificationCenter.default.addObserver(forName: .kCentralManagerDidUpdateState, object: nil, queue: .main) { (notification) in
             guard let central = notification.object as? CBCentralManager else { assertionFailure(); return }
