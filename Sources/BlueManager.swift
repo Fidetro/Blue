@@ -22,7 +22,13 @@ func printDebugLog<T>(_ message: T,
 
 
 
-
+extension CBCentralManager {
+    public var centralManagerState: CBCentralManagerState  {
+        get {
+            return CBCentralManagerState(rawValue: state.rawValue) ?? .unknown
+        }
+    }
+}
 
 
 public class BlueManager: NSObject,CBCentralManagerDelegate,CBPeripheralDelegate {
@@ -46,11 +52,11 @@ public class BlueManager: NSObject,CBCentralManagerDelegate,CBPeripheralDelegate
         centralManager.scanForPeripherals(withServices: services, options: nil)
     }
     
-    public func currentState() -> CBManagerState {
-        return centralManager.state
+    public func currentState() -> CBCentralManagerState {
+        return centralManager.centralManagerState
     }
     
-    
+
 }
 
 
@@ -58,6 +64,7 @@ public class BlueManager: NSObject,CBCentralManagerDelegate,CBPeripheralDelegate
 // MARK: - CBCentralManagerDelegate
 extension BlueManager {
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        
         NotificationCenter.default.post(name: .kCentralManagerDidUpdateState, object: central)
     }
     

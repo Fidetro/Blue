@@ -171,7 +171,7 @@ extension Blue {
     func register() {
         BlueManager.share.blues.append(self)
         self.localeChangeObserver = NotificationCenter.default.addObserver(forName: .kCentralManagerDidUpdateState, object: nil, queue: .main) { (notification) in
-            guard let central = notification.object as? CBCentralManager else { assertionFailure(); return }
+            guard let central = notification.object as? CBCentralManager else { assertionFailure(); return }            
             switch central.state {
             case .unknown:
                 break

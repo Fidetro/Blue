@@ -26,7 +26,7 @@ class ViewController: UIViewController {
                 print("找到了")
                 return ("称",p)
             }else{
-                print(p.name)
+                print(p.name ?? "")
             }
             return nil
         }).connect().done{
@@ -47,9 +47,9 @@ class ViewController: UIViewController {
                     return characteristic
                 }
                 return nil
-            }).stopScan().update { [weak self](_,data) in
+            }).stopScan().update { (_,data) in
                 print("data")
-                guard let data = data else {return}
+                guard let _ = data else {return}
                 
         }
     }
