@@ -12,7 +12,9 @@
 		9A28E5FF20B7BBCF00BC449C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A28E5FD20B7BBCF00BC449C /* Main.storyboard */; };
 		9A28E60120B7BBD200BC449C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A28E60020B7BBD200BC449C /* Assets.xcassets */; };
 		9A28E60420B7BBD200BC449C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A28E60220B7BBD200BC449C /* LaunchScreen.storyboard */; };
-		9A28E60C20B7BBE200BC449C /* Blue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A28E60B20B7BBE200BC449C /* Blue.swift */; };
+		9A9499A220C8C7E90071E206 /* BlueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A94999F20C8C7E80071E206 /* BlueManager.swift */; };
+		9A9499A320C8C7E90071E206 /* Blue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9499A020C8C7E90071E206 /* Blue.swift */; };
+		9A9499A420C8C7E90071E206 /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9499A120C8C7E90071E206 /* NotificationCenter+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +25,9 @@
 		9A28E60020B7BBD200BC449C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A28E60320B7BBD200BC449C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A28E60520B7BBD200BC449C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9A28E60B20B7BBE200BC449C /* Blue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blue.swift; sourceTree = "<group>"; };
+		9A94999F20C8C7E80071E206 /* BlueManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueManager.swift; sourceTree = "<group>"; };
+		9A9499A020C8C7E90071E206 /* Blue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Blue.swift; sourceTree = "<group>"; };
+		9A9499A120C8C7E90071E206 /* NotificationCenter+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +74,9 @@
 		9A28E60D20B7BBE700BC449C /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				9A28E60B20B7BBE200BC449C /* Blue.swift */,
+				9A9499A020C8C7E90071E206 /* Blue.swift */,
+				9A94999F20C8C7E80071E206 /* BlueManager.swift */,
+				9A9499A120C8C7E90071E206 /* NotificationCenter+Extension.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -146,9 +152,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A28E60C20B7BBE200BC449C /* Blue.swift in Sources */,
 				9A28E5FC20B7BBCF00BC449C /* ViewController.swift in Sources */,
+				9A9499A320C8C7E90071E206 /* Blue.swift in Sources */,
+				9A9499A420C8C7E90071E206 /* NotificationCenter+Extension.swift in Sources */,
 				9A28E5FA20B7BBCF00BC449C /* AppDelegate.swift in Sources */,
+				9A9499A220C8C7E90071E206 /* BlueManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,8 +300,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J3BJ7G2PUN;
+				DEVELOPMENT_TEAM = PZX8G85BFY;
 				INFOPLIST_FILE = Blue/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -301,6 +310,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Fidetro.Blue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -310,8 +320,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J3BJ7G2PUN;
+				DEVELOPMENT_TEAM = PZX8G85BFY;
 				INFOPLIST_FILE = Blue/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -319,6 +330,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.Fidetro.Blue;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
